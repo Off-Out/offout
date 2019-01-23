@@ -1,24 +1,12 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import { ProfileScreen, HomeScreen, MapScreen, ChatScreen } from './screen';
 
-export default class App extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}>EventPal</Text>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'red',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: 'white',
-  },
+const TabNavigator = createBottomTabNavigator({
+  Profile: ProfileScreen,
+  Home: HomeScreen,
+  Map: MapScreen,
+  Chat: ChatScreen,
 });
+
+export default createAppContainer(TabNavigator);
