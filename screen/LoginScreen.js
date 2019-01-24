@@ -13,7 +13,6 @@ import firebase from '../firebase/firebase';
 //   messagingSenderId: '963629551224',
 // };
 
-firebase.initializeApp(config);
 firebase.database().ref().child('users')
 
 class LoginScreen extends Component {

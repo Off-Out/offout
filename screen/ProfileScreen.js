@@ -3,6 +3,7 @@ import { StyleSheet, View, TextInput, Image, AsyncStorage } from 'react-native';
 // import Button from 'react-native-button'
 // import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 import { Form, Item, Label, Input, Button, Text} from 'native-base'
+import firebase from '../firebase/firebase';
  
 
 export default class ProfileScreen extends Component {
@@ -48,7 +49,12 @@ export default class ProfileScreen extends Component {
         <Button transparent danger style={styles.button}>
           <Text>SAVE</Text>
         </Button>
-        {/* <Button style={styles.button}>LOG OUT</Button> */}
+        <Button transparent danger style={styles.button} onPress={() => firebase.auth().signOut().then(() => {
+          console.log("Sign Out!");
+          this.props.navigation.navigate('Auth');
+        })}>
+          <Text>LOG OUT</Text>
+        </Button>
       </Form>
     )
     }
