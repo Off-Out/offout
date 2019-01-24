@@ -7,7 +7,15 @@ export default class ProfileScreen extends Component {
     this.props.navigation.navigate('Auth');
   };
   render() {
-    return <View style={styles.container} />;
+    const { navigation } = this.props;
+    console.log(navigation);
+    const userID = navigation.getParam('userID', null);
+    console.log(userID);
+    return (
+      <View style={styles.container}>
+        <Text />
+      </View>
+    );
   }
 }
 

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet, AsyncStorage } from 'react-native';
+import { View, Image, StyleSheet, Alert } from 'react-native';
 import { Container } from 'native-base';
 import { SignUpSection, LoginForm } from '../component/index';
 import firebase from '../firebase/firebase';
+import { withNavigation } from 'react-navigation';
 
 // const config = {
 //   apiKey: 'AIzaSyDASrTzVRRqiSk1tnLhkjS2iN2AQvFjAMc',
@@ -19,20 +20,15 @@ class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: 'gracehopper@eventpal.com',
+      password: '123456',
     };
   }
 
   handleUserInput = (stateField, text) => {
-    this.setState(
-      {
-        [stateField]: text,
-      },
-      () => {
-        console.log(this.state);
-      }
-    );
+    this.setState({
+      [stateField]: text,
+    });
   };
 
   createUserAccount = (email, password) => {
@@ -49,10 +45,15 @@ class LoginScreen extends Component {
         .auth()
         .signInWithEmailAndPassword(email, password);
       const { uid } = user;
+      if (uid) {
+        this.props.navigation.navigate('App', {
+          userID: uid,
+        });
+      }
     } catch (error) {
+      Alert.alert('Username/Password does not match');
       console.log(error.toString());
     }
-    this.props.navigation.navigate('App');
   };
 
   render() {
