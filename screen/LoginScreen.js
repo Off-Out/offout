@@ -15,6 +15,7 @@ const config = {
 };
 
 firebase.initializeApp(config);
+firebase.database().ref().child('users')
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -37,18 +38,19 @@ class LoginScreen extends Component {
   };
 
   user = (uid) => {
-    const userDb = firebase.database().ref(`users/${uid}`)
+    firebase.database().ref(`users/${uid}`)
   }
 
-  users = () => {
-    firebase.database().ref('users')
-  }
+  // users = () => {
+  //   firebase.database().ref('users')
+  // }
 
   createUserAccount = async (email, password) => {
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(authUser => {
-        return firebase.user(authUser.user.uid).set({email})
+        console.log("am i here?", authUser.user.uid)
+        return user(authUser.user.uid).set({email})
       })
     } catch (error) {
       console.log(error.toString());
