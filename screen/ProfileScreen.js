@@ -9,10 +9,6 @@ import firebase from '../firebase/firebase';
 export default class ProfileScreen extends Component {
   constructor() {
     super() 
-    // signOutAsync = async () => {
-    //   await AsyncStorage.clear();
-    //   this.props.navigation.navigate('Auth');
-    // };
 
     this.state = {
       name: 'EventPal',
@@ -29,9 +25,6 @@ export default class ProfileScreen extends Component {
 
   render() {
     return (
-      // <View style={styles.container}>
-      // <Button title="Actually, sign me out :)" onPress={this._signOutAsync} />
-      // </View>
       <Form style={styles.form}>
         <Image source={require('../user-account-icon-13.jpg')} style={styles.image}/>
         <Item stackedLabel style={styles.item}>

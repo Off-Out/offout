@@ -4,16 +4,6 @@ import { Container } from 'native-base';
 import { SignUpSection, LoginForm } from '../component/index';
 import firebase from '../firebase/firebase';
 
-// const config = {
-//   apiKey: 'AIzaSyDASrTzVRRqiSk1tnLhkjS2iN2AQvFjAMc',
-//   authDomain: 'eventpal-40e2c.firebaseapp.com',
-//   databaseURL: 'https://eventpal-40e2c.firebaseio.com',
-//   projectId: 'eventpal-40e2c',
-//   storageBucket: 'eventpal-40e2c.appspot.com',
-//   messagingSenderId: '963629551224',
-// };
-
-firebase.database().ref().child('users')
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -35,24 +25,17 @@ class LoginScreen extends Component {
     );
   };
 
-  user = (uid) => {
-    firebase.database().ref(`users/${uid}`)
-  }
-
-  // users = () => {
-  //   firebase.database().ref('users')
-  // }
-
   createUserAccount = async (email, password) => {
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(authUser => {
         console.log("am i here?", authUser.user.uid)
-        return user(authUser.user.uid).set({email})
+        return firebase.database().ref(`users/${authUser.user.uid}`).set({email})
       })
     } catch (error) {
       console.log(error.toString());
     }
+    this.props.navigation.navigate('App');
   };
 
   login = async (email, password) => {
@@ -63,7 +46,6 @@ class LoginScreen extends Component {
       console.log(user);
       const { uid, email } = user;
       console.log(uid);
-      // await saveUserData(uid.val(), email.val())
     } catch (error) {
       console.log(error.toString());
     }
