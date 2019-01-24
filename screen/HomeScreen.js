@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, StyleSheet, View, Button, Alert, Picker } from 'react-native';
 
 export default class HomeScreen extends Component {
-  handlePress(event) {
+  handlePress() {
     Alert.alert('COOL THINGS HAPPENING HERE!');
   }
   render() {
