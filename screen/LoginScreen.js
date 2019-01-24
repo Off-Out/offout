@@ -28,13 +28,13 @@ class LoginScreen extends Component {
       await auth.createUserWithEmailAndPassword(email, password)
       .then(authUser => {
         console.log("am i here?", authUser.user.uid)
-        return db.ref(`users/${authUser.user.uid}`).set({email})
+        db.ref(`users/${authUser.user.uid}`).set({email});
+        
+        this.props.navigation.navigate('Profile', {userId: authUser.user.uid})
       })
     } catch (error) {
       console.log(error.toString());
     }
-    this.props.navigation.navigate('App')
-    // , {userId: authUser.user.uid});
   };
 
   login = async (email, password) => {
@@ -47,7 +47,7 @@ class LoginScreen extends Component {
     } catch (error) {
       console.log(error.toString());
     }
-    this.props.navigation.navigate('App', );
+    this.props.navigation.navigate('App');
   };
 
   render() {
