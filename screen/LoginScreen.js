@@ -13,7 +13,7 @@ import firebase from '../firebase/firebase';
 //   messagingSenderId: '963629551224',
 // };
 
-// firebase.initializeApp(config);
+firebase.database().ref().child('users')
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -35,9 +35,21 @@ class LoginScreen extends Component {
     );
   };
 
-  createUserAccount = (email, password) => {
+  user = (uid) => {
+    firebase.database().ref(`users/${uid}`)
+  }
+
+  // users = () => {
+  //   firebase.database().ref('users')
+  // }
+
+  createUserAccount = async (email, password) => {
     try {
-      firebase.auth().createUserWithEmailAndPassword(email, password);
+      await firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(authUser => {
+        console.log("am i here?", authUser.user.uid)
+        return user(authUser.user.uid).set({email})
+      })
     } catch (error) {
       console.log(error.toString());
     }
@@ -48,7 +60,10 @@ class LoginScreen extends Component {
       const { user } = await firebase
         .auth()
         .signInWithEmailAndPassword(email, password);
-      const { uid } = user;
+      console.log(user);
+      const { uid, email } = user;
+      console.log(uid);
+      // await saveUserData(uid.val(), email.val())
     } catch (error) {
       console.log(error.toString());
     }
