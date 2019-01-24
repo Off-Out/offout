@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet, AsyncStorage } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
+import { withNavigation } from 'react-navigation'
 import { Container } from 'native-base';
 import { SignUpSection, LoginForm } from '../component/index';
-import firebase from '../firebase/firebase';
+import {auth, db} from '../firebase/firebase';
 
 
 class LoginScreen extends Component {
@@ -18,30 +19,27 @@ class LoginScreen extends Component {
     this.setState(
       {
         [stateField]: text,
-      },
-      () => {
-        console.log(this.state);
       }
     );
   };
 
   createUserAccount = async (email, password) => {
     try {
-      await firebase.auth().createUserWithEmailAndPassword(email, password)
+      await auth.createUserWithEmailAndPassword(email, password)
       .then(authUser => {
         console.log("am i here?", authUser.user.uid)
-        return firebase.database().ref(`users/${authUser.user.uid}`).set({email})
+        return db.ref(`users/${authUser.user.uid}`).set({email})
       })
     } catch (error) {
       console.log(error.toString());
     }
-    this.props.navigation.navigate('App');
+    this.props.navigation.navigate('App')
+    // , {userId: authUser.user.uid});
   };
 
   login = async (email, password) => {
     try {
-      const { user } = await firebase
-        .auth()
+      const { user } = await auth
         .signInWithEmailAndPassword(email, password);
       console.log(user);
       const { uid, email } = user;
@@ -49,7 +47,7 @@ class LoginScreen extends Component {
     } catch (error) {
       console.log(error.toString());
     }
-    this.props.navigation.navigate('App');
+    this.props.navigation.navigate('App', );
   };
 
   render() {

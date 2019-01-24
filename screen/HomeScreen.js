@@ -74,9 +74,9 @@ export default class HomeScreen extends Component {
             style={styles.picker}
             onValueChange={this.handleChange}
           >
-            {this.dummyDataLocation.defaultLocation ? (
+            {dummyDataLocation.defaultLocation ? (
               <Picker.Item
-                label={this.dummyDataLocation.defaultLocation}
+                label={dummyDataLocation.defaultLocation}
                 value="location"
               />
             ) : (
