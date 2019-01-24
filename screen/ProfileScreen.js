@@ -7,11 +7,7 @@ export default class ProfileScreen extends Component {
     this.props.navigation.navigate('Auth');
   };
   render() {
-    return (
-      <View style={styles.container}>
-        <Button title="Actually, sign me out :)" onPress={this._signOutAsync} />
-      </View>
-    );
+    return <View style={styles.container} />;
   }
 }
 
