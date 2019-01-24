@@ -10,3 +10,5 @@ const config = {
 };
 
 firebase.initializeApp(config);
+
+// export const userDb = firebase.database().ref().child('users')

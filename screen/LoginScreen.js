@@ -3,6 +3,7 @@ import { View, Image, StyleSheet, AsyncStorage } from 'react-native';
 import { Container } from 'native-base';
 import { SignUpSection, LoginForm } from '../component/index';
 import * as firebase from 'firebase';
+// import { userDb } from '../firebase/firebase'
 
 const config = {
   apiKey: 'AIzaSyDASrTzVRRqiSk1tnLhkjS2iN2AQvFjAMc',
@@ -35,9 +36,20 @@ class LoginScreen extends Component {
     );
   };
 
-  createUserAccount = (email, password) => {
+  user = (uid) => {
+    const userDb = firebase.database().ref(`users/${uid}`)
+  }
+
+  users = () => {
+    firebase.database().ref('users')
+  }
+
+  createUserAccount = async (email, password) => {
     try {
-      firebase.auth().createUserWithEmailAndPassword(email, password);
+      await firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(authUser => {
+        return firebase.user(authUser.user.uid).set({email})
+      })
     } catch (error) {
       console.log(error.toString());
     }
@@ -49,8 +61,9 @@ class LoginScreen extends Component {
         .auth()
         .signInWithEmailAndPassword(email, password);
       console.log(user);
-      const { uid } = user;
+      const { uid, email } = user;
       console.log(uid);
+      // await saveUserData(uid.val(), email.val())
     } catch (error) {
       console.log(error.toString());
     }
