@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, TextInput, Image } from 'react-native';
-import Button from 'react-native-button'
-import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import { StyleSheet, View, TextInput, Image } from 'react-native';
+// import Button from 'react-native-button'
+// import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
+import { Form, Item, Label, Input, Button, Text} from 'native-base'
+ 
 
 export default class ProfileScreen extends Component {
   constructor() {
@@ -22,28 +24,39 @@ export default class ProfileScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <Form style={styles.form}>
         <Image source={require('../user-account-icon-13.jpg')} style={styles.image}/>
-        <FormLabel style={styles.inputField}>NAME</FormLabel>
-        <TextInput style={styles.inputValue} name="name" value={this.state.name} onChangeText={this.handleName}/>
-        <FormLabel style={styles.inputField}>E-MAIL ADDRESS</FormLabel>
-        <TextInput style={styles.inputValue} keyboardType="email-address" name="email" value={this.state.email} onChangeText={this.handleEmail} />
-        {/* <FormValidationMessage>{'This field is required'}</FormValidationMessage> */}
-        <FormLabel style={styles.inputField}>DEFAULT LOCATION</FormLabel>
-        <TextInput keyboardType={"numeric"} style={styles.inputValue} name="location" value={this.state.location} onChangeText={this.handleLocation} />
-        <Button style={styles.button} >SAVE</Button>
-        <Button style={styles.button}>LOG OUT</Button>
-      
-      </View>
+        <Item stackedLabel style={styles.item}>
+          <Label style={styles.label}>NAME</Label>
+          <Input style={styles.input} name="name" value={this.state.name} onChangeText={this.handleName} />
+        </Item>
+        <Item stackedLabel style={styles.item}>
+          <Label style={styles.label}>EMAIL</Label>
+          <Input style={styles.input} keyboardType="email-address" name="email" value={this.state.email} onChangeText={this.handleEmail}/>
+        </Item>
+        <Item stackedLabel style={styles.item}>
+          <Label style={styles.label}>LOCATION</Label>
+          <Input style={styles.input} keyboardType={"numeric"} style={styles.input} name="location" value={this.state.location}/>
+        </Item>
+        <Button transparent danger style={styles.button}>
+          <Text>SAVE</Text>
+        </Button>
+        {/* <Button style={styles.button}>LOG OUT</Button> */}
+      </Form>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  form: {
     flex: 1,
     justifyContent: "flex-start",
-    alignItems: "flex-start",
+  },
+  item: {
+    borderColor: "transparent"
+  },
+  label:{
+    marginLeft: 13,
   },
   image: {
     width: 150,
@@ -53,20 +66,17 @@ const styles = StyleSheet.create({
     marginBottom: 55,
   },
 
-  inputValue: {
+  input: {
+    marginLeft: 13,
     fontSize: 17,
-    marginLeft: 20,
-    marginRight: 20,
-    paddingTop: 10,
-    paddingBottom: 5,
+    marginRight: 25,
+    paddingTop: 13,
+    marginBottom: 10,
     borderColor: "indianred",
     borderBottomWidth: 0.5,
-    alignSelf: "stretch",
   },
+
   button: {
-    color: "palevioletred",
-    fontWeight: "bold",
-    marginLeft: 20,
-    paddingTop: 30,
+    margin: 13,
   }
 });
