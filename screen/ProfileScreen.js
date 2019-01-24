@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, View, TextInput, Image } from 'react-native';
+import Button from 'react-native-button'
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements'
 
 export default class ProfileScreen extends Component {
@@ -7,31 +8,32 @@ export default class ProfileScreen extends Component {
     super() 
 
     this.state = {
-      "name": 'Christina',
-      "email": 'christina0jin@gmail.com',
-      "location": 60605,
+      name: 'EventPal',
+      email: 'eventPal@gmail.com',
+      location: "60605",
     }
   }
 
-  handleChange = e => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState({
-      [name]: value
-    })
-  }
+  handleName = text => this.setState({ name: text })
+  handleEmail = text => this.setState({ email: text })
+  handleLocation = text => this.setState({ location: text })
+
+
 
   render() {
     return (
       <View style={styles.container}>
         <Image source={require('../user-account-icon-13.jpg')} style={styles.image}/>
         <FormLabel style={styles.inputField}>NAME</FormLabel>
-        <FormInput style={styles.inputValue} name="name" value={this.state.name}></FormInput>
+        <TextInput style={styles.inputValue} name="name" value={this.state.name} onChangeText={this.handleName}/>
         <FormLabel style={styles.inputField}>E-MAIL ADDRESS</FormLabel>
-        <FormInput style={styles.inputValue} name="email" value={this.state.email}></FormInput>
+        <TextInput style={styles.inputValue} keyboardType="email-address" name="email" value={this.state.email} onChangeText={this.handleEmail} />
         {/* <FormValidationMessage>{'This field is required'}</FormValidationMessage> */}
         <FormLabel style={styles.inputField}>DEFAULT LOCATION</FormLabel>
-        <FormInput style={styles.inputValue} name="location" value={this.state.location}></FormInput>
+        <TextInput keyboardType={"numeric"} style={styles.inputValue} name="location" value={this.state.location} onChangeText={this.handleLocation} />
+        <Button style={styles.button} >SAVE</Button>
+        <Button style={styles.button}>LOG OUT</Button>
+      
       </View>
     )
   }
@@ -48,7 +50,23 @@ const styles = StyleSheet.create({
     height: 150,
     alignSelf: "center",
     marginTop: 100,
-    marginBottom: 75,
+    marginBottom: 55,
   },
 
+  inputValue: {
+    fontSize: 17,
+    marginLeft: 20,
+    marginRight: 20,
+    paddingTop: 10,
+    paddingBottom: 5,
+    borderColor: "indianred",
+    borderBottomWidth: 0.5,
+    alignSelf: "stretch",
+  },
+  button: {
+    color: "palevioletred",
+    fontWeight: "bold",
+    marginLeft: 20,
+    paddingTop: 30,
+  }
 });
