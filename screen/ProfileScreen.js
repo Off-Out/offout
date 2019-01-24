@@ -8,10 +8,10 @@ import { Form, Item, Label, Input, Button, Text} from 'native-base'
 export default class ProfileScreen extends Component {
   constructor() {
     super() 
-    signOutAsync = async () => {
-      await AsyncStorage.clear();
-      this.props.navigation.navigate('Auth');
-    };
+    // signOutAsync = async () => {
+    //   await AsyncStorage.clear();
+    //   this.props.navigation.navigate('Auth');
+    // };
 
     this.state = {
       name: 'EventPal',
