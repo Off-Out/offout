@@ -1,53 +1,37 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
-import { withNavigation } from 'react-navigation'
+import { View, Image, StyleSheet, Alert } from 'react-native';
 import { Container } from 'native-base';
 import { SignUpSection, LoginForm } from '../component/index';
-import {auth, db} from '../firebase/firebase';
-
+import { auth, database } from '../firebase/firebase';
 
 class LoginScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: 'gracehopper@eventpal.com',
+      password: '123456',
     };
   }
 
   handleUserInput = (stateField, text) => {
-    this.setState(
-      {
-        [stateField]: text,
-      }
-    );
+    this.setState({
+      [stateField]: text,
+    });
   };
 
-  createUserAccount = async (email, password) => {
-    try {
-      await auth.createUserWithEmailAndPassword(email, password)
-      .then(authUser => {
-        console.log("am i here?", authUser.user.uid)
-        db.ref(`users/${authUser.user.uid}`).set({email});
-        
-        this.props.navigation.navigate('Profile', {userId: authUser.user.uid})
-      })
-    } catch (error) {
-      console.log(error.toString());
-    }
+  createUserAccount = (email, password) => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(user => database.ref(`users/${user.user.uid}`).set({ email }))
+      .then(() => this.props.navigation.navigate('App'))
+      .catch(error => Alert.alert(error.message));
   };
 
   login = async (email, password) => {
-    try {
-      const { user } = await auth
-        .signInWithEmailAndPassword(email, password);
-      console.log(user);
-      const { uid, email } = user;
-      console.log(uid);
-    } catch (error) {
-      console.log(error.toString());
-    }
-    this.props.navigation.navigate('App');
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => this.props.navigation.navigate('App'))
+      .catch(error => Alert.alert(error.message));
   };
 
   render() {
