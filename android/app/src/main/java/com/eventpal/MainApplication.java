@@ -3,8 +3,11 @@ package com.eventpal;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+<<<<<<< HEAD
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+=======
+>>>>>>> 9c41e7575d337b2f843b0c05667bb687b3685004
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -24,9 +27,13 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
+<<<<<<< HEAD
           new MainReactPackage(),
             new VectorIconsPackage(),
             new RNGestureHandlerPackage()
+=======
+          new MainReactPackage()
+>>>>>>> 9c41e7575d337b2f843b0c05667bb687b3685004
       );
     }
 

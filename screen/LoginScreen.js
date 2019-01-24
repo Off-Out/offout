@@ -2,19 +2,7 @@ import React, { Component } from 'react';
 import { View, Image, StyleSheet, Alert } from 'react-native';
 import { Container } from 'native-base';
 import { SignUpSection, LoginForm } from '../component/index';
-import firebase from '../firebase/firebase';
-import { withNavigation } from 'react-navigation';
-
-// const config = {
-//   apiKey: 'AIzaSyDASrTzVRRqiSk1tnLhkjS2iN2AQvFjAMc',
-//   authDomain: 'eventpal-40e2c.firebaseapp.com',
-//   databaseURL: 'https://eventpal-40e2c.firebaseio.com',
-//   projectId: 'eventpal-40e2c',
-//   storageBucket: 'eventpal-40e2c.appspot.com',
-//   messagingSenderId: '963629551224',
-// };
-
-// firebase.initializeApp(config);
+import { auth, database } from '../firebase/firebase';
 
 class LoginScreen extends Component {
   constructor(props) {
@@ -32,28 +20,18 @@ class LoginScreen extends Component {
   };
 
   createUserAccount = (email, password) => {
-    try {
-      firebase.auth().createUserWithEmailAndPassword(email, password);
-    } catch (error) {
-      console.log(error.toString());
-    }
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(user => database.ref(`users/${user.user.uid}`).set({ email }))
+      .then(() => this.props.navigation.navigate('App'))
+      .catch(error => Alert.alert(error.message));
   };
 
   login = async (email, password) => {
-    try {
-      const { user } = await firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password);
-      const { uid } = user;
-      if (uid) {
-        this.props.navigation.navigate('App', {
-          userID: uid,
-        });
-      }
-    } catch (error) {
-      Alert.alert('Username/Password does not match');
-      console.log(error.toString());
-    }
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => this.props.navigation.navigate('App'))
+      .catch(error => Alert.alert(error.message));
   };
 
   render() {
