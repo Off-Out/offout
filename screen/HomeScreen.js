@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, Button, Alert, Picker } from 'react-native';
+import { StyleSheet, View, Alert, Picker } from 'react-native';
+import { Divider, Text, Title, Button } from 'react-native-paper';
 
 const dummyDataCategory = [
   { category: 'Entertainment', id: 1 },
@@ -42,12 +43,11 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <View styles={styles.container}>
-        <View styles={{ flex: 2 }}>
-          <Text styles={{ textAlign: 'center' }}>
-            What Do YOU Want To Do Today?
-          </Text>
-        </View>
-        <View styles={{ flex: 1 }}>
+        <View>
+          <View styles={styles.titleView}>
+            <Text styles={styles.title}>Hello World</Text>
+          </View>
+
           <Picker
             selectedValue={this.state.category}
             onValueChange={(itemValue, label) =>
@@ -92,13 +92,20 @@ export default class HomeScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
     flex: 1,
     backgroundColor: 'steelblue',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
-  pickerBox: {
-    flex: 3,
+
+  titleView: {
+    marginTop: 100,
+  },
+  title: {
+    fontFamily: 'System',
+    fontSize: 40,
+
+    color: '#2F4E6F',
+    fontWeight: '500',
   },
 });
