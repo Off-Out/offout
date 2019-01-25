@@ -15,6 +15,20 @@ export default class ProfileScreen extends Component {
       location: '60605',
     };
   }
+  
+  async componentDidMount() {
+    const { navigation } = this.props;
+    console.log(navigation, "navigation")
+    console.log(navigation.getParam("userId"))
+    // const user = await firebase.database().ref(`/users/${navigation.getParam('userId')}`).once('value', (snapshot) => console.log(snapshot.val()));
+    // console.log(user)
+
+    // + this.props.navigation.navigate.getParam(userID)).once('value');
+    // console.log("what is user", user)
+    // this.setState(
+    //   email: user.email
+    // })
+  }
 
   handleName = text => this.setState({ name: text });
   handleEmail = text => this.setState({ email: text });
